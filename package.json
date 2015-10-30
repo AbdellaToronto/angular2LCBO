@@ -15,15 +15,5 @@
   "bugs": {
     "url": "https://github.com/igor-ka/ng-systemjs-starter/issues"
   },
-  "homepage": "https://github.com/igor-ka/ng-systemjs-starter#readme",
-  "jspm": {
-    "dependencies": {
-      "angular": "npm:angular@^1.4.7"
-    },
-    "devDependencies": {
-      "babel": "npm:babel-core@^5.8.24",
-      "babel-runtime": "npm:babel-runtime@^5.8.24",
-      "core-js": "npm:core-js@^1.1.4"
-    }
-  }
+  "homepage": "https://github.com/igor-ka/ng-systemjs-starter#readme"
 }
