@@ -4,7 +4,9 @@
   "description": "Example project for L&amp;L",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc -p src -w",
+    "start": "live-server --open=src"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/igor-ka/ng-systemjs-starter/issues"
   },
-  "homepage": "https://github.com/igor-ka/ng-systemjs-starter#readme"
+  "homepage": "https://github.com/igor-ka/ng-systemjs-starter#readme",
+  "dependencies": {
+    "angular": "^1.4.7",
+    "babel-core": "^5.8.24",
+    "systemjs": "^0.19.5"
+  }
 }
