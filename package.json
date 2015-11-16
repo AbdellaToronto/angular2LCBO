@@ -20,7 +20,8 @@
   "homepage": "https://github.com/igor-ka/ng-systemjs-starter#readme",
   "dependencies": {
     "angular": "^1.4.7",
+    "angular2": "2.0.0-alpha.46",
     "babel-core": "^5.8.24",
-    "systemjs": "^0.19.5"
+    "systemjs": "0.19.2"
   }
 }

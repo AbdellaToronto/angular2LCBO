@@ -5,10 +5,15 @@
   <title>LCBO Search</title>
 </head>
 <body>
-<lcbo-app></lcbo-app>
+<lcbo-app>Loading..</lcbo-app>
 
+<script src="../node_modules/systemjs/dist/system.src.js"></script>
+<script src="../node_modules/angular2/bundles/angular2.dev.js"></script><script>
+  System.config({
+    packages: {'lcbo-app': {defaultExtension: 'js'}}
+  });
+  System.import('lcbo-app/lcbo-app');
 
-<script src="../node_modules/systemjs/dist/system.js"></script>
-<script src="config.js"></script>
+</script>
 </body>
 </html>
