@@ -11,8 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var angular2_1 = require('angular2/angular2');
 var router_1 = require('angular2/router');
-//import { CustomersComponent } from '../customers/customers-component';
-//import { OrdersComponent } from '../orders/orders-component';
 var drink_list_1 = require('../drink-list/drink-list');
 var AppComponent = (function () {
     function AppComponent() {

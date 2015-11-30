@@ -13,13 +13,19 @@ var http_1 = require('angular2/http');
 var angular2_1 = require('angular2/angular2');
 var LCBOStore = (function () {
     function LCBOStore(http) {
-        this.apiKey = 'MDpjYmEyYzk4NC05Nzk3LTExZTUtOWU1OS00NzQ2ODZmYzkyMWQ6bGZkQ0hGZWY5Q3ZHUHIwSmxISEFCeTRVYTh3NzdHV1FpUm00';
-        this.drinks = http.get('https://lcboapi.com/v2/products', { search: 'red wine', headers: {
+        this.apiKey = 'MDphNDBhNTc4ZS05N2E2LTExZTUtOWFjNC0wM2ZlYzliMmYyMDI6ZzR4eWpKTzY3dGJIOUVHZVNDQlliMFhOdnF5MHJwYnA1bmEz';
+        this.http = http;
+    }
+    LCBOStore.prototype.getDrinks = function (queryString) {
+        return this.http.get('https://lcboapi.com/v2/products?', {
+            search: 'q=' + queryString,
+            headers: {
                 Authorization: 'Token ' + this.apiKey
-            } })
+            }
+        })
             .map(function (res) { return JSON.parse(res._body); })
             .map(function (res) { return res.data; }); //Todo: probably don't run this map to get access to meta data
-    }
+    };
     LCBOStore = __decorate([
         angular2_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

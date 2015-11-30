@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var angular2_1 = require('angular2/angular2');
 var drinks_api_service_1 = require("../../services/drinks-api-service");
+var drink_query_1 = require("../drink-query-input/drink-query");
 var DrinkListItem = (function () {
     function DrinkListItem() {
     }
@@ -22,23 +23,27 @@ var DrinkListItem = (function () {
         angular2_1.Component({
             selector: 'drink-list-item',
             template: "\n    <span class=\"drink-name\">{{drink.name}}</span>\n    ",
-            styles: ["\n    :host {\n    width: 75vw;\n    }\n\n    .drink-name {\n    font-size: 18px;\n    }\n\n    "]
+            styles: ["\n    :host {\n    width: 90vw;\n    }\n\n    .drink-name {\n    font-size: 18px;\n    }\n\n    "]
         }), 
         __metadata('design:paramtypes', [])
     ], DrinkListItem);
     return DrinkListItem;
 })();
+//todo: figure out a cleaner way to handle output emissions
 var DrinkList = (function () {
     function DrinkList(lcbo) {
         var _this = this;
-        lcbo.drinks.subscribe(function (drinks) { return _this.drinkList = drinks; });
+        lcbo.getDrinks('white wine').subscribe(function (drinks) { return _this.drinkList = drinks; });
     }
+    DrinkList.prototype.updateDrinkList = function (response) {
+        this.drinkList = response;
+    };
     DrinkList = __decorate([
         angular2_1.Component({
             providers: [drinks_api_service_1.LCBOStore],
             selector: 'drink-list',
-            template: "\n    <h2>Drink List</h2>\n    <drink-list-item *ng-for=\"#drink of drinkList\" [drink]=\"drink\"></drink-list-item>\n    ",
-            directives: [angular2_1.NgFor, DrinkListItem],
+            template: "\n    <h2>Drink List</h2>\n    <drink-query #c (change)=\"updateDrinkList(c.query)\"></drink-query>\n    <drink-list-item *ng-for=\"#drink of drinkList\" [drink]=\"drink\"></drink-list-item>\n    ",
+            directives: [angular2_1.NgFor, DrinkListItem, drink_query_1.DrinkQuery],
             styles: ["\n    :host {\n    width: 95vw;\n    display: flex;\n    flex-direction: column;\n    }\n\n    "]
         }), 
         __metadata('design:paramtypes', [drinks_api_service_1.LCBOStore])
