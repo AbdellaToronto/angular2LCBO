@@ -1,0 +1,8 @@
+{
+  "firebase": "ng2lcbo",
+  "public": "build",
+  "ignore": [
+    "firebase.json",
+    "**/.*"
+  ]
+}

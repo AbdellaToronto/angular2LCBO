@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "outDir": "../build/app",
     "target": "ES5",
     "module": "commonjs",
     "sourceMap": true,

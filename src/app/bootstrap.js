@@ -8,4 +8,3 @@ angular2_1.bootstrap(app_component_1.AppComponent, [
     http_1.HTTP_PROVIDERS,
     angular2_1.bind(router_1.LocationStrategy).toClass(router_1.HashLocationStrategy)
 ]).then(function (success) { return console.log('AppComponent bootstrapped!'); }, function (error) { return console.log(error); });
-//# sourceMappingURL=bootstrap.js.map
