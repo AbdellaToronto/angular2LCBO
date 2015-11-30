@@ -11,25 +11,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var angular2_1 = require('angular2/angular2');
 var router_1 = require('angular2/router');
-var data_service_1 = require('../../services/data-service');
-var OrdersComponent = (function () {
-    function OrdersComponent(dataService) {
-        this.dataService = dataService;
-        this.title = 'Orders';
+//import { CustomersComponent } from '../customers/customers-component';
+//import { OrdersComponent } from '../orders/orders-component';
+var drink_list_1 = require('../drink-list/drink-list');
+var AppComponent = (function () {
+    function AppComponent() {
     }
-    OrdersComponent.prototype.onInit = function () {
-        //Load orders here (hard-coded for now)
-    };
-    OrdersComponent = __decorate([
+    AppComponent = __decorate([
         angular2_1.Component({
-            selector: 'orders',
-            providers: [data_service_1.DataService],
-            templateUrl: 'app/components/orders/orders-component.html',
-            directives: [angular2_1.NgFor, router_1.RouterLink]
-        }), 
-        __metadata('design:paramtypes', [data_service_1.DataService])
-    ], OrdersComponent);
-    return OrdersComponent;
+            selector: 'app',
+            template: "<router-outlet></router-outlet>",
+            directives: [router_1.ROUTER_DIRECTIVES],
+        }),
+        router_1.RouteConfig([
+            { path: '/', as: 'DrinkList', component: drink_list_1.DrinkList }
+        ]), 
+        __metadata('design:paramtypes', [])
+    ], AppComponent);
+    return AppComponent;
 })();
-exports.OrdersComponent = OrdersComponent;
-//# sourceMappingURL=orders-component.js.map
+exports.AppComponent = AppComponent;
+//# sourceMappingURL=app-component.js.map
