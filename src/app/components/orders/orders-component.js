@@ -10,17 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var angular2_1 = require('angular2/angular2');
-var LCBOApp = (function () {
-    function LCBOApp() {
+var router_1 = require('angular2/router');
+var data_service_1 = require('../../services/data-service');
+var OrdersComponent = (function () {
+    function OrdersComponent(dataService) {
+        this.dataService = dataService;
+        this.title = 'Orders';
     }
-    LCBOApp = __decorate([
+    OrdersComponent.prototype.onInit = function () {
+        //Load orders here (hard-coded for now)
+    };
+    OrdersComponent = __decorate([
         angular2_1.Component({
-            selector: 'lcbo-app',
-            template: "\n    <h3>Hello world</h3>\n    "
+            selector: 'orders',
+            providers: [data_service_1.DataService],
+            templateUrl: 'app/components/orders/orders-component.html',
+            directives: [angular2_1.NgFor, router_1.RouterLink]
         }), 
-        __metadata('design:paramtypes', [])
-    ], LCBOApp);
-    return LCBOApp;
+        __metadata('design:paramtypes', [data_service_1.DataService])
+    ], OrdersComponent);
+    return OrdersComponent;
 })();
-angular2_1.bootstrap(LCBOApp);
-//# sourceMappingURL=lcbo-app.js.map
+exports.OrdersComponent = OrdersComponent;
+//# sourceMappingURL=orders-component.js.map

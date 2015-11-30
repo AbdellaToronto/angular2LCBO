@@ -1,27 +1,17 @@
 {
-  "name": "ng-systemjs-starter",
-  "version": "1.0.0",
-  "description": "Example project for L&amp;L",
-  "main": "index.js",
+  "name": "angular2-starter",
+  "author": "Dan Wahlin",
+  "version": "0.5.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "tsc": "tsc -p src -w",
+    "tsc": "tsc --project src --watch",
     "start": "live-server --open=src"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/igor-ka/ng-systemjs-starter.git"
-  },
-  "author": "Igor Krivanov (igor.krivanov@rangle.io)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/igor-ka/ng-systemjs-starter/issues"
-  },
-  "homepage": "https://github.com/igor-ka/ng-systemjs-starter#readme",
   "dependencies": {
-    "angular": "^1.4.7",
     "angular2": "2.0.0-alpha.46",
-    "babel-core": "^5.8.24",
-    "systemjs": "0.19.2"
+    "systemjs": "^0.19.5"
+  },
+  "devDependencies": {
+    "live-server": "^0.8.2",
+    "typescript": "^1.6.2"
   }
 }
