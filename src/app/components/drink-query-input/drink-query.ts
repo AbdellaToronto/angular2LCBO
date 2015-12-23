@@ -1,8 +1,8 @@
-import { Component, View, NgFor, Output, Observable, EventEmitter } from 'angular2/angular2';
+import { Component, View, Output, EventEmitter } from 'angular2/core';
 import {LCBOStore} from "../../services/drinks-api-service";
 
 @Component({
-    provider: [LCBOStore],
+    providers: [LCBOStore],
     selector: 'drink-query',
     template: `
     <label for="drinkInput">Query: </label>
@@ -16,18 +16,16 @@ import {LCBOStore} from "../../services/drinks-api-service";
  `]
 })
 export class DrinkQuery {
-    lcbo: LCBOStore;
-    @Output() change:EventEmitter = new EventEmitter();
-    query: Array<any> = [];
+    @Output() changed:EventEmitter = new EventEmitter();
+
 
     //todo: this feels clumsy, ask about better handling of event updates w/ data
     searchForDrinks(drinkString){
         this.lcbo.getDrinks(drinkString)
-        .do(drinks => this.query = drinks)
-        .subscribe(drinks => this.change.next(drinks));
+        .subscribe(drinks => this.changed.next(drinks));
     }
 
-    constructor(lcbo: LCBOStore) {
-        this.lcbo = lcbo;
+    constructor(private lcbo: LCBOStore) {
+        this.searchForDrinks('White');
     }
 }

@@ -1,6 +1,6 @@
-import { Component, View, NgFor, Input } from 'angular2/angular2';
-import {LCBOStore} from "../../services/drinks-api-service";
+import { Component, View, Input } from 'angular2/core';
 import {DrinkQuery} from "../drink-query-input/drink-query";
+import {NgFor} from "angular2/common";
 
 @Component({
     selector: 'drink-list-item',
@@ -27,21 +27,20 @@ class DrinkListItem {
 
 //todo: figure out a cleaner way to handle output emissions
 @Component({
-    providers: [LCBOStore],
     selector: 'drink-list',
     template: `
     <h2>Drink List</h2>
-    <drink-query #c (change)="updateDrinkList(c.query)"></drink-query>
-    <drink-list-item *ng-for="#drink of drinkList" [drink]="drink"></drink-list-item>
+    <drink-query #c (changed)="updateDrinkList($event)"></drink-query>
+    <drink-list-item *ngFor="#drink of drinkList" [drink]="drink"></drink-list-item>
     `,
     directives: [NgFor, DrinkListItem, DrinkQuery],
-    styles: [`
+    styles: [
+        `
     :host {
     width: 95vw;
     display: flex;
     flex-direction: column;
     }
-
     `]
 })
 export class DrinkList {
@@ -50,7 +49,5 @@ export class DrinkList {
     updateDrinkList(response){
         this.drinkList = response;
     }
-    constructor(lcbo: LCBOStore){
-        lcbo.getDrinks('white wine').subscribe(drinks=> this.drinkList = drinks);
-    }
+    constructor(){}
 }
