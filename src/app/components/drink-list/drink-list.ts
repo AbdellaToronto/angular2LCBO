@@ -1,6 +1,9 @@
 import { Component, View, Input } from 'angular2/core';
 import {DrinkQuery} from "../drink-query-input/drink-query";
 import {NgFor} from "angular2/common";
+import {DrinkActions} from "../../services/actions/drink-query-actions";
+import {DrinkStore} from "../../services/stores/drink-store";
+
 
 @Component({
     selector: 'drink-list-item',
@@ -27,10 +30,11 @@ class DrinkListItem {
 
 //todo: figure out a cleaner way to handle output emissions
 @Component({
-    selector: 'drink-list',
+    providers: [DrinkActions],
+    selector: `drink-list`,
     template: `
     <h2>Drink List</h2>
-    <drink-query #c (changed)="updateDrinkList($event)"></drink-query>
+    <drink-query #c (changed)="requestNewDrinks($event)"></drink-query>
     <drink-list-item *ngFor="#drink of drinkList" [drink]="drink"></drink-list-item>
     `,
     directives: [NgFor, DrinkListItem, DrinkQuery],
@@ -46,8 +50,9 @@ class DrinkListItem {
 export class DrinkList {
     drinkList: Array<any>;
 
-    updateDrinkList(response){
-        this.drinkList = response;
+    requestNewDrinks = DrinkActions.getDrinks;
+
+    constructor(){
+        DrinkStore.stream.subscribe();
     }
-    constructor(){}
 }

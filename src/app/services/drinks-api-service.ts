@@ -1,29 +1,42 @@
-import { Http, Response, RequestOptionsArgs } from 'angular2/http';
+import { Http, Response } from 'angular2/http';
 import { Injectable } from 'angular2/core';
 import 'rxjs/add/operator/map';
+import {RequestOptions} from "angular2/http";
 
 
 @Injectable()
-export class LCBOStore{
+export class LCBOProductsRequest {
 
-    private apiKey = 'MDphNDBhNTc4ZS05N2E2LTExZTUtOWFjNC0wM2ZlYzliMmYyMDI6ZzR4eWpKTzY3dGJIOUVHZVNDQlliMFhOdnF5MHJwYnA1bmEz';
+    //private static apiKey = 'MDphNDBhNTc4ZS05N2E2LTExZTUtOWFjNC0wM2ZlYzliMmYyMDI6ZzR4eWpKTzY3dGJIOUVHZVNDQlliMFhOdnF5MHJwYnA1bmEz';
+    //
+    //getDrinks(queryString){
+    //
+    //    let options = {
+    //        search: 'q=' + queryString,
+    //        headers: {
+    //            Authorization: 'Token ' + LCBOAPI.apiKey
+    //        }
+    //    };
+    //
+    //    debugger;
+    //
+    //    return this.http.get('https://lcboapi.com/v2/products?', options)
+    //        .map((res: Response) => res.json())
+    //        .map(res => res.data); //Todo: probably don't run this map to get access to meta data
+    //};
 
-    private options: Object;
+    constructor(http: Http, queryString:String) {
 
-    public getDrinks(queryString){
+        let apiKey = 'MDphNDBhNTc4ZS05N2E2LTExZTUtOWFjNC0wM2ZlYzliMmYyMDI6ZzR4eWpKTzY3dGJIOUVHZVNDQlliMFhOdnF5MHJwYnA1bmEz';
+        let options = new RequestOptions('GET', {
+            Authorization: 'Token ' + apiKey
+        }, null, '', `q=${queryString}`);
 
-        this.options = {
-            search: 'q=' + queryString,
-            headers: {
-                Authorization: 'Token ' + this.apiKey
-            }
-        };
 
-        return this.http.get('https://lcboapi.com/v2/products?', this.options)
-            .map((res: Response) => res.json())
+
+        debugger;
+        return http.get('https://lcboapi.com/v2/products?', options).map((res:Response) => res.json())
             .map(res => res.data); //Todo: probably don't run this map to get access to meta data
     }
-
-    constructor(private http: Http){}
 
 }

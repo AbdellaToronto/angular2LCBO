@@ -1,8 +1,6 @@
 import { Component, View, Output, EventEmitter } from 'angular2/core';
-import {LCBOStore} from "../../services/drinks-api-service";
 
 @Component({
-    providers: [LCBOStore],
     selector: 'drink-query',
     template: `
     <label for="drinkInput">Query: </label>
@@ -19,13 +17,14 @@ export class DrinkQuery {
     @Output() changed:EventEmitter = new EventEmitter();
 
 
-    //todo: this feels clumsy, ask about better handling of event updates w/ data
-    searchForDrinks(drinkString){
-        this.lcbo.getDrinks(drinkString)
-        .subscribe(drinks => this.changed.next(drinks));
-    }
+    searchForDrinks = (drinkString) => this.changed.next(drinkString);
 
-    constructor(private lcbo: LCBOStore) {
+    //    this._drinkActions.
+    //    this.lcbo.getDrinks(drinkString)
+    //    .subscribe(drinks => this.changed.next(drinks));
+    //}
+
+    constructor() {
         this.searchForDrinks('White');
     }
 }

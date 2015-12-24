@@ -1,4 +1,4 @@
-System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map'], function(exports_1) {
+System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map', "angular2/http"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,8 +8,8 @@ System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map'], fun
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var http_1, core_1;
-    var LCBOStore;
+    var http_1, core_1, http_2;
+    var LCBOProductsRequest;
     return {
         setters:[
             function (http_1_1) {
@@ -18,31 +18,45 @@ System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map'], fun
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (_1) {}],
+            function (_1) {},
+            function (http_2_1) {
+                http_2 = http_2_1;
+            }],
         execute: function() {
-            LCBOStore = (function () {
-                function LCBOStore(http) {
-                    this.http = http;
-                    this.apiKey = 'MDphNDBhNTc4ZS05N2E2LTExZTUtOWFjNC0wM2ZlYzliMmYyMDI6ZzR4eWpKTzY3dGJIOUVHZVNDQlliMFhOdnF5MHJwYnA1bmEz';
-                }
-                LCBOStore.prototype.getDrinks = function (queryString) {
-                    this.options = {
-                        search: 'q=' + queryString,
-                        headers: {
-                            Authorization: 'Token ' + this.apiKey
-                        }
-                    };
-                    return this.http.get('https://lcboapi.com/v2/products?', this.options)
-                        .map(function (res) { return res.json(); })
+            LCBOProductsRequest = (function () {
+                //private static apiKey = 'MDphNDBhNTc4ZS05N2E2LTExZTUtOWFjNC0wM2ZlYzliMmYyMDI6ZzR4eWpKTzY3dGJIOUVHZVNDQlliMFhOdnF5MHJwYnA1bmEz';
+                //
+                //getDrinks(queryString){
+                //
+                //    let options = {
+                //        search: 'q=' + queryString,
+                //        headers: {
+                //            Authorization: 'Token ' + LCBOAPI.apiKey
+                //        }
+                //    };
+                //
+                //    debugger;
+                //
+                //    return this.http.get('https://lcboapi.com/v2/products?', options)
+                //        .map((res: Response) => res.json())
+                //        .map(res => res.data); //Todo: probably don't run this map to get access to meta data
+                //};
+                function LCBOProductsRequest(http, queryString) {
+                    var apiKey = 'MDphNDBhNTc4ZS05N2E2LTExZTUtOWFjNC0wM2ZlYzliMmYyMDI6ZzR4eWpKTzY3dGJIOUVHZVNDQlliMFhOdnF5MHJwYnA1bmEz';
+                    var options = new http_2.RequestOptions('GET', {
+                        Authorization: 'Token ' + apiKey
+                    }, null, '', "q=" + queryString);
+                    debugger;
+                    return http.get('https://lcboapi.com/v2/products?', options).map(function (res) { return res.json(); })
                         .map(function (res) { return res.data; }); //Todo: probably don't run this map to get access to meta data
-                };
-                LCBOStore = __decorate([
+                }
+                LCBOProductsRequest = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [http_1.Http])
-                ], LCBOStore);
-                return LCBOStore;
+                    __metadata('design:paramtypes', [http_1.Http, String])
+                ], LCBOProductsRequest);
+                return LCBOProductsRequest;
             })();
-            exports_1("LCBOStore", LCBOStore);
+            exports_1("LCBOProductsRequest", LCBOProductsRequest);
         }
     }
 });

@@ -1,8 +1,8 @@
 {
   "firebase": "ng2lcbo",
-  "public": "build",
+  "public": ".",
   "ignore": [
     "firebase.json",
-    "**/.*"
+    "src"
   ]
 }

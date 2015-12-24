@@ -4,7 +4,8 @@
   "version": "0.5.0",
   "scripts": {
     "tsc": "tsc --project src --watch",
-    "lite": "lite-server --open build",
+    "lite": "lite-server",
+    "firebase-build": "firebase deploy && firebase open",
     "start": "concurrent \"npm run tsc\" \"npm run lite\" "
   },
   "dependencies": {
