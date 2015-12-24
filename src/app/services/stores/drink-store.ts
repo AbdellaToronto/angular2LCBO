@@ -7,24 +7,19 @@ import {LCBOProductsRequest} from "../drinks-api-service";
 import {Http} from "angular2/http";
 
 
+@Injectable()
 export class DrinkStore {
 
-
-    private static _getDrinkAction: Observable = ActionDispatcher
+    private _getDrinkAction: Observable = ActionDispatcher
         .get('getDrink');
 
+    public stream = new ReplaySubject(1);
 
-    private static _updateDrinks = DrinkStore._getDrinkAction
-    .flatMap((action) => new LCBOProductsRequest(action.data.q))
-    .subscribe((n) => {
-        debugger;
-        DrinkStore.stream.next([]);
-    });
+    constructor(private lcbo: LCBOProductsRequest){
+        this._getDrinkAction
+            .flatMap((action) => lcbo.getDrinks(action.data.q))
+            .subscribe((list)=> this.stream.next(list));
 
-    public static stream = new ReplaySubject(1);
-
-
-
-    constructor(){}
+    }
 
 }

@@ -1,4 +1,4 @@
-System.register(['angular2/core', "../drink-query-input/drink-query", "angular2/common", "../../services/actions/drink-query-actions", "../../services/stores/drink-store"], function(exports_1) {
+System.register(['angular2/core', "../drink-query-input/drink-query", "angular2/common", "../../services/actions/drink-query-actions", "../../services/stores/drink-store", "../../services/drinks-api-service"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', "../drink-query-input/drink-query", "angular2/
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, drink_query_1, common_1, drink_query_actions_1, drink_store_1;
+    var core_1, drink_query_1, common_1, drink_query_actions_1, drink_store_1, drinks_api_service_1;
     var DrinkListItem, DrinkList;
     return {
         setters:[
@@ -26,6 +26,9 @@ System.register(['angular2/core', "../drink-query-input/drink-query", "angular2/
             },
             function (drink_store_1_1) {
                 drink_store_1 = drink_store_1_1;
+            },
+            function (drinks_api_service_1_1) {
+                drinks_api_service_1 = drinks_api_service_1_1;
             }],
         execute: function() {
             DrinkListItem = (function () {
@@ -47,20 +50,22 @@ System.register(['angular2/core', "../drink-query-input/drink-query", "angular2/
             })();
             //todo: figure out a cleaner way to handle output emissions
             DrinkList = (function () {
-                function DrinkList() {
+                function DrinkList(drinkStore) {
+                    var _this = this;
+                    this.drinkStore = drinkStore;
                     this.requestNewDrinks = drink_query_actions_1.DrinkActions.getDrinks;
-                    drink_store_1.DrinkStore.stream.subscribe();
+                    drinkStore.stream.subscribe(function (res) { return _this.drinkList = res; });
                 }
                 DrinkList = __decorate([
                     core_1.Component({
-                        providers: [drink_query_actions_1.DrinkActions],
+                        providers: [drink_query_actions_1.DrinkActions, drink_store_1.DrinkStore, drinks_api_service_1.LCBOProductsRequest],
                         selector: "drink-list",
                         template: "\n    <h2>Drink List</h2>\n    <drink-query #c (changed)=\"requestNewDrinks($event)\"></drink-query>\n    <drink-list-item *ngFor=\"#drink of drinkList\" [drink]=\"drink\"></drink-list-item>\n    ",
                         directives: [common_1.NgFor, DrinkListItem, drink_query_1.DrinkQuery],
                         styles: [
                             "\n    :host {\n    width: 95vw;\n    display: flex;\n    flex-direction: column;\n    }\n    "]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [drink_store_1.DrinkStore])
                 ], DrinkList);
                 return DrinkList;
             })();

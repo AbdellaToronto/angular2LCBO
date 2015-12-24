@@ -3,6 +3,7 @@ import {DrinkQuery} from "../drink-query-input/drink-query";
 import {NgFor} from "angular2/common";
 import {DrinkActions} from "../../services/actions/drink-query-actions";
 import {DrinkStore} from "../../services/stores/drink-store";
+import {LCBOProductsRequest} from "../../services/drinks-api-service";
 
 
 @Component({
@@ -30,7 +31,7 @@ class DrinkListItem {
 
 //todo: figure out a cleaner way to handle output emissions
 @Component({
-    providers: [DrinkActions],
+    providers: [DrinkActions, DrinkStore, LCBOProductsRequest],
     selector: `drink-list`,
     template: `
     <h2>Drink List</h2>
@@ -52,7 +53,7 @@ export class DrinkList {
 
     requestNewDrinks = DrinkActions.getDrinks;
 
-    constructor(){
-        DrinkStore.stream.subscribe();
+    constructor(private drinkStore: DrinkStore){
+        drinkStore.stream.subscribe(res => this.drinkList = res);
     }
 }
