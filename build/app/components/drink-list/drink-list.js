@@ -48,7 +48,6 @@ System.register(['angular2/core', "../drink-query-input/drink-query", "angular2/
                 ], DrinkListItem);
                 return DrinkListItem;
             })();
-            //todo: figure out a cleaner way to handle output emissions
             DrinkList = (function () {
                 function DrinkList(drinkStore) {
                     var _this = this;
@@ -62,8 +61,7 @@ System.register(['angular2/core', "../drink-query-input/drink-query", "angular2/
                         selector: "drink-list",
                         template: "\n    <h2>Drink List</h2>\n    <drink-query #c (changed)=\"requestNewDrinks($event)\"></drink-query>\n    <drink-list-item *ngFor=\"#drink of drinkList\" [drink]=\"drink\"></drink-list-item>\n    ",
                         directives: [common_1.NgFor, DrinkListItem, drink_query_1.DrinkQuery],
-                        styles: [
-                            "\n    :host {\n    width: 95vw;\n    display: flex;\n    flex-direction: column;\n    }\n    "]
+                        styles: ["\n    :host {\n    width: 95vw;\n    display: flex;\n    flex-direction: column;\n    }\n    "]
                     }), 
                     __metadata('design:paramtypes', [drink_store_1.DrinkStore])
                 ], DrinkList);

@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../drink-list/drink-list', "../category-list/category-list"], function(exports_1) {
+System.register(['angular2/core', "../action-dispatcher"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,35 +8,31 @@ System.register(['angular2/core', '../drink-list/drink-list', "../category-list/
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, drink_list_1, category_list_1;
-    var AppComponent;
+    var core_1, action_dispatcher_1;
+    var CategoryActions;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (drink_list_1_1) {
-                drink_list_1 = drink_list_1_1;
-            },
-            function (category_list_1_1) {
-                category_list_1 = category_list_1_1;
+            function (action_dispatcher_1_1) {
+                action_dispatcher_1 = action_dispatcher_1_1;
             }],
         execute: function() {
-            AppComponent = (function () {
-                function AppComponent() {
+            CategoryActions = (function () {
+                function CategoryActions() {
                 }
-                AppComponent = __decorate([
-                    core_1.Component({
-                        selector: 'app',
-                        template: "\n  <category-list></category-list>\n  <drink-list></drink-list>\n  ",
-                        directives: [drink_list_1.DrinkList, category_list_1.CategoryList]
-                    }), 
+                CategoryActions.getCategories = function () {
+                    action_dispatcher_1.ActionDispatcher.dispatch({ name: 'getCategories', data: null });
+                };
+                CategoryActions = __decorate([
+                    core_1.Injectable(), 
                     __metadata('design:paramtypes', [])
-                ], AppComponent);
-                return AppComponent;
+                ], CategoryActions);
+                return CategoryActions;
             })();
-            exports_1("AppComponent", AppComponent);
+            exports_1("CategoryActions", CategoryActions);
         }
     }
 });
-//# sourceMappingURL=app-component.js.map
+//# sourceMappingURL=category-actions.js.map

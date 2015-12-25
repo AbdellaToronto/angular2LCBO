@@ -1,4 +1,4 @@
-System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map'], function(exports_1) {
+System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map', "angular2/http"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,8 +8,8 @@ System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map'], fun
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var http_1, core_1;
-    var LCBOProductsRequest;
+    var http_1, core_1, http_2;
+    var LCBOProductsRequest, LCBOCategoriesRequest;
     return {
         setters:[
             function (http_1_1) {
@@ -18,7 +18,10 @@ System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map'], fun
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (_1) {}],
+            function (_1) {},
+            function (http_2_1) {
+                http_2 = http_2_1;
+            }],
         execute: function() {
             LCBOProductsRequest = (function () {
                 function LCBOProductsRequest(http) {
@@ -28,9 +31,9 @@ System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map'], fun
                     var apiKey = 'MDphNDBhNTc4ZS05N2E2LTExZTUtOWFjNC0wM2ZlYzliMmYyMDI6ZzR4eWpKTzY3dGJIOUVHZVNDQlliMFhOdnF5MHJwYnA1bmEz';
                     var options = {
                         search: 'q=' + queryString,
-                        headers: {
-                            Authorization: 'Token ' + apiKey
-                        }
+                        headers: new http_2.Headers({
+                            'Authorization': "Token " + apiKey
+                        })
                     };
                     return this.http.get('https://lcboapi.com/v2/products?', options)
                         .map(function (res) { return res.json(); })
@@ -44,6 +47,29 @@ System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map'], fun
                 return LCBOProductsRequest;
             })();
             exports_1("LCBOProductsRequest", LCBOProductsRequest);
+            LCBOCategoriesRequest = (function () {
+                function LCBOCategoriesRequest(http) {
+                    this.http = http;
+                }
+                LCBOCategoriesRequest.prototype.getCategories = function () {
+                    var apiKey = 'MDphNDBhNTc4ZS05N2E2LTExZTUtOWFjNC0wM2ZlYzliMmYyMDI6ZzR4eWpKTzY3dGJIOUVHZVNDQlliMFhOdnF5MHJwYnA1bmEz';
+                    var options = {
+                        headers: new http_2.Headers({
+                            'Authorization': "Token " + apiKey
+                        })
+                    };
+                    return this.http.get('https://lcboapi.com/v2/categories', options)
+                        .map(function (res) { return res.json(); })
+                        .map(function (res) { return res.data; });
+                };
+                ;
+                LCBOCategoriesRequest = __decorate([
+                    core_1.Injectable(), 
+                    __metadata('design:paramtypes', [http_1.Http])
+                ], LCBOCategoriesRequest);
+                return LCBOCategoriesRequest;
+            })();
+            exports_1("LCBOCategoriesRequest", LCBOCategoriesRequest);
         }
     }
 });

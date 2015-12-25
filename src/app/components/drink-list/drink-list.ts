@@ -29,7 +29,6 @@ class DrinkListItem {
 }
 
 
-//todo: figure out a cleaner way to handle output emissions
 @Component({
     providers: [DrinkActions, DrinkStore, LCBOProductsRequest],
     selector: `drink-list`,
@@ -39,8 +38,7 @@ class DrinkListItem {
     <drink-list-item *ngFor="#drink of drinkList" [drink]="drink"></drink-list-item>
     `,
     directives: [NgFor, DrinkListItem, DrinkQuery],
-    styles: [
-        `
+    styles: [`
     :host {
     width: 95vw;
     display: flex;
