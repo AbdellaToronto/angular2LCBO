@@ -10,7 +10,6 @@ import {DrinkActions} from "../../services/actions/drink-query-actions";
     selector: 'category-item',
     directives: [NgFor, CategoryItem],
     template: `
-    <span>**Sub Categories not working as intended yet**</span>
     <div class="category-name">
     <h4 (click)="searchForDrinks(category.name)" >{{category.name}}</h4>
     <div class="sub-cats">
@@ -50,6 +49,7 @@ class CategoryItem {
     providers: [CategoryActions, DrinkActions, CategoryStore, LCBOCategoriesRequest],
     selector: `category-list`,
     template: `
+        <span>**Sub Categories not working as intended yet**</span>
     <category-item *ngFor="#category of categoryList" [category]="category" (selected)="requestNewDrinks($event)"></category-item>
     `,
     directives: [NgFor, CategoryItem],

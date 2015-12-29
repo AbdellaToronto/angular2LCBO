@@ -71,7 +71,7 @@ System.register(['angular2/core', "angular2/common", '../../services/stores/cate
                     core_1.Component({
                         providers: [category_actions_1.CategoryActions, drink_query_actions_1.DrinkActions, category_store_1.CategoryStore, drinks_api_service_1.LCBOCategoriesRequest],
                         selector: "category-list",
-                        template: "\n    <category-item *ngFor=\"#category of categoryList\" [category]=\"category\" (selected)=\"requestNewDrinks($event)\"></category-item>\n    ",
+                        template: "\n        <span>**Sub Categories not working as intended yet**</span>\n    <category-item *ngFor=\"#category of categoryList\" [category]=\"category\" (selected)=\"requestNewDrinks($event)\"></category-item>\n    ",
                         directives: [common_1.NgFor, CategoryItem],
                         styles: ["\n    :host {\n    width: 30vw;\n    display: flex;\n    flex-direction: column;\n    }"]
                     }), 
