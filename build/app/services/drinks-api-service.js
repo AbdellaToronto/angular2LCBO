@@ -40,6 +40,19 @@ System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map', "ang
                         .map(function (res) { return res.data; }); //Todo: probably don't run this map to get access to meta data
                 };
                 ;
+                LCBOProductsRequest.prototype.getDrinksByCat = function (catName) {
+                    var apiKey = 'MDphNDBhNTc4ZS05N2E2LTExZTUtOWFjNC0wM2ZlYzliMmYyMDI6ZzR4eWpKTzY3dGJIOUVHZVNDQlliMFhOdnF5MHJwYnA1bmEz';
+                    var options = {
+                        search: 'q=' + catName,
+                        headers: new http_2.Headers({
+                            'Authorization': "Token " + apiKey
+                        })
+                    };
+                    return this.http.get("https://lcboapi.com/v2/products?", options)
+                        .map(function (res) { return res.json(); })
+                        .map(function (res) { return res.data; }); //Todo: probably don't run this map to get access to meta data
+                };
+                ;
                 LCBOProductsRequest = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [http_1.Http])

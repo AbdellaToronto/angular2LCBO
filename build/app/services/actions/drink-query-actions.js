@@ -25,6 +25,9 @@ System.register(['angular2/core', "../action-dispatcher"], function(exports_1) {
                 DrinkActions.getDrinks = function (query) {
                     action_dispatcher_1.ActionDispatcher.dispatch({ name: 'getDrink', data: { q: query } });
                 };
+                DrinkActions.getDrinksByCategory = function (query) {
+                    action_dispatcher_1.ActionDispatcher.dispatch({ name: 'getDrinkByCategory', data: { category: query } });
+                };
                 DrinkActions = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [])

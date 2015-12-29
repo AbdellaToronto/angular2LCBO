@@ -28,6 +28,7 @@ System.register(['angular2/core', '../drink-list/drink-list', "../category-list/
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'app',
+                        styles: ["\n\n  :host {\n\n  display: flex;\n\n\n  }\n  "],
                         template: "\n  <category-list></category-list>\n  <drink-list></drink-list>\n  ",
                         directives: [drink_list_1.DrinkList, category_list_1.CategoryList]
                     }), 

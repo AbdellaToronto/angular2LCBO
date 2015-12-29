@@ -17,10 +17,6 @@ System.register(['angular2/core'], function(exports_1) {
             }],
         execute: function() {
             DrinkQuery = (function () {
-                //    this._drinkActions.
-                //    this.lcbo.getDrinks(drinkString)
-                //    .subscribe(drinks => this.changed.next(drinks));
-                //}
                 function DrinkQuery() {
                     var _this = this;
                     this.changed = new core_1.EventEmitter();

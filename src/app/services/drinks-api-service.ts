@@ -22,6 +22,22 @@ export class LCBOProductsRequest {
             .map(res => res.data); //Todo: probably don't run this map to get access to meta data
     };
 
+
+    getDrinksByCat(catName){
+        let apiKey = 'MDphNDBhNTc4ZS05N2E2LTExZTUtOWFjNC0wM2ZlYzliMmYyMDI6ZzR4eWpKTzY3dGJIOUVHZVNDQlliMFhOdnF5MHJwYnA1bmEz';
+
+        let options = {
+            search: 'q=' + catName,
+            headers: new Headers({
+                'Authorization': `Token ${apiKey}`
+            })
+        };
+
+        return this.http.get(`https://lcboapi.com/v2/products?`, options)
+            .map((res:Response) => res.json())
+            .map(res => res.data); //Todo: probably don't run this map to get access to meta data
+    };
+
     constructor(private http: Http) {}
 
 }

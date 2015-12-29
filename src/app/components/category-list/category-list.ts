@@ -1,19 +1,32 @@
-import { Component, View, Input } from 'angular2/core';
+import { Component, View, Input, Output, EventEmitter } from 'angular2/core';
 import {NgFor} from "angular2/common";
 import {CategoryStore} from '../../services/stores/category-store'
 import {CategoryActions} from "../../services/actions/category-actions";
 import {LCBOCategoriesRequest} from "../../services/drinks-api-service";
+import {DrinkActions} from "../../services/actions/drink-query-actions";
 
 
 @Component({
-
     selector: 'category-item',
+    directives: [NgFor, CategoryItem],
     template: `
-    <span class="category-name">{{category.name}}</span>
+    <span>**Sub Categories not working as intended yet**</span>
+    <div class="category-name">
+    <h4 (click)="searchForDrinks(category.name)" >{{category.name}}</h4>
+    <div class="sub-cats">
+        <category-item
+        *ngFor="#subcategory of category.children"
+        [category]="subcategory" (selected)="searchForDrinks($event)"></category-item>
+    </div>
+    </div>
     `,
     styles: [`
     :host {
-    width: 90vw;
+    width: 200px;
+    }
+
+    .sub-cats {
+    padding-left: 20px;
     }
 
     .category-name {
@@ -24,29 +37,36 @@ import {LCBOCategoriesRequest} from "../../services/drinks-api-service";
 })
 class CategoryItem {
     @Input() category: any;
+    @Output() selected:EventEmitter = new EventEmitter();
+
+    searchForDrinks = (drinkString) => this.selected.next(drinkString);
+
+
     constructor() {
     }
 }
 
 @Component({
-    providers: [CategoryActions, CategoryStore, LCBOCategoriesRequest],
+    providers: [CategoryActions, DrinkActions, CategoryStore, LCBOCategoriesRequest],
     selector: `category-list`,
     template: `
-    <category-item *ngFor="#category of categoryList" [category]="category"></category-item>
+    <category-item *ngFor="#category of categoryList" [category]="category" (selected)="requestNewDrinks($event)"></category-item>
     `,
     directives: [NgFor, CategoryItem],
     styles: [`
     :host {
-    width: 95vw;
+    width: 30vw;
     display: flex;
     flex-direction: column;
-    }
-    `]
+    }`]
 })
 export class CategoryList {
     categoryList: Array<any>;
 
     requestNewCategories = CategoryActions.getCategories;
+    requestNewDrinks = (res)=>{
+        DrinkActions.getDrinksByCategory(res);
+    };
 
     constructor(private _categoryStore: CategoryStore){
 

@@ -34,13 +34,13 @@ class DrinkListItem {
     selector: `drink-list`,
     template: `
     <h2>Drink List</h2>
-    <drink-query #c (changed)="requestNewDrinks($event)"></drink-query>
+    <drink-query (changed)="requestNewDrinks($event)"></drink-query>
     <drink-list-item *ngFor="#drink of drinkList" [drink]="drink"></drink-list-item>
     `,
     directives: [NgFor, DrinkListItem, DrinkQuery],
     styles: [`
     :host {
-    width: 95vw;
+    width: 70vw;
     display: flex;
     flex-direction: column;
     }

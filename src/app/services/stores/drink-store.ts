@@ -10,15 +10,23 @@ import {Http} from "angular2/http";
 @Injectable()
 export class DrinkStore {
 
-    private _getDrinkAction: Observable = ActionDispatcher
+    private _getDrinkAction:Observable = ActionDispatcher
         .get('getDrink');
+
+    private _getDrinkByCategoryAction:Observable = ActionDispatcher
+        .get('getDrinkByCategory');
 
     public stream = new ReplaySubject(1);
 
-    constructor(private lcbo: LCBOProductsRequest){
+    constructor(private lcbo:LCBOProductsRequest) {
         this._getDrinkAction
             .flatMap((action) => lcbo.getDrinks(action.data.q))
             .subscribe((list)=> this.stream.next(list));
+
+        this._getDrinkByCategoryAction
+            .flatMap((action) => lcbo.getDrinksByCat(action.data.category))
+            .subscribe((list)=> this.stream.next(list));
+
 
     }
 

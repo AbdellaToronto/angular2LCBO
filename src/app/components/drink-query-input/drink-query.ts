@@ -16,13 +16,7 @@ import { Component, View, Output, EventEmitter } from 'angular2/core';
 export class DrinkQuery {
     @Output() changed:EventEmitter = new EventEmitter();
 
-
     searchForDrinks = (drinkString) => this.changed.next(drinkString);
-
-    //    this._drinkActions.
-    //    this.lcbo.getDrinks(drinkString)
-    //    .subscribe(drinks => this.changed.next(drinks));
-    //}
 
     constructor() {
         this.searchForDrinks('White');

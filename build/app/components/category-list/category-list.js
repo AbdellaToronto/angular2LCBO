@@ -1,4 +1,4 @@
-System.register(['angular2/core', "angular2/common", '../../services/stores/category-store', "../../services/actions/category-actions", "../../services/drinks-api-service"], function(exports_1) {
+System.register(['angular2/core', "angular2/common", '../../services/stores/category-store', "../../services/actions/category-actions", "../../services/drinks-api-service", "../../services/actions/drink-query-actions"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', "angular2/common", '../../services/stores/cate
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, category_store_1, category_actions_1, drinks_api_service_1;
+    var core_1, common_1, category_store_1, category_actions_1, drinks_api_service_1, drink_query_actions_1;
     var CategoryItem, CategoryList;
     return {
         setters:[
@@ -26,20 +26,31 @@ System.register(['angular2/core', "angular2/common", '../../services/stores/cate
             },
             function (drinks_api_service_1_1) {
                 drinks_api_service_1 = drinks_api_service_1_1;
+            },
+            function (drink_query_actions_1_1) {
+                drink_query_actions_1 = drink_query_actions_1_1;
             }],
         execute: function() {
             CategoryItem = (function () {
                 function CategoryItem() {
+                    var _this = this;
+                    this.selected = new core_1.EventEmitter();
+                    this.searchForDrinks = function (drinkString) { return _this.selected.next(drinkString); };
                 }
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Object)
                 ], CategoryItem.prototype, "category", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', core_1.EventEmitter)
+                ], CategoryItem.prototype, "selected", void 0);
                 CategoryItem = __decorate([
                     core_1.Component({
                         selector: 'category-item',
-                        template: "\n    <span class=\"category-name\">{{category.name}}</span>\n    ",
-                        styles: ["\n    :host {\n    width: 90vw;\n    }\n\n    .category-name {\n    font-size: 18px;\n    }\n\n    "]
+                        directives: [common_1.NgFor, CategoryItem],
+                        template: "\n    <div class=\"category-name\">\n    <h4 (click)=\"searchForDrinks(category.name)\" >{{category.name}}</h4>\n    <div class=\"sub-cats\">\n        <category-item\n        *ngFor=\"#subcategory of category.children\"\n        [category]=\"subcategory\" (selected)=\"searchForDrinks($event)\"></category-item>\n    </div>\n    </div>\n    ",
+                        styles: ["\n    :host {\n    width: 200px;\n    }\n\n    .sub-cats {\n    padding-left: 20px;\n    }\n\n    .category-name {\n    font-size: 18px;\n    }\n\n    "]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], CategoryItem);
@@ -50,16 +61,19 @@ System.register(['angular2/core', "angular2/common", '../../services/stores/cate
                     var _this = this;
                     this._categoryStore = _categoryStore;
                     this.requestNewCategories = category_actions_1.CategoryActions.getCategories;
+                    this.requestNewDrinks = function (res) {
+                        drink_query_actions_1.DrinkActions.getDrinksByCategory(res);
+                    };
                     this.requestNewCategories();
                     _categoryStore.stream.subscribe(function (res) { return _this.categoryList = res; });
                 }
                 CategoryList = __decorate([
                     core_1.Component({
-                        providers: [category_actions_1.CategoryActions, category_store_1.CategoryStore, drinks_api_service_1.LCBOCategoriesRequest],
+                        providers: [category_actions_1.CategoryActions, drink_query_actions_1.DrinkActions, category_store_1.CategoryStore, drinks_api_service_1.LCBOCategoriesRequest],
                         selector: "category-list",
-                        template: "\n    <category-item *ngFor=\"#category of categoryList\" [category]=\"category\"></category-item>\n    ",
+                        template: "\n    <category-item *ngFor=\"#category of categoryList\" [category]=\"category\" (selected)=\"requestNewDrinks($event)\"></category-item>\n    ",
                         directives: [common_1.NgFor, CategoryItem],
-                        styles: ["\n    :host {\n    width: 95vw;\n    display: flex;\n    flex-direction: column;\n    }\n    "]
+                        styles: ["\n    :host {\n    width: 30vw;\n    display: flex;\n    flex-direction: column;\n    }"]
                     }), 
                     __metadata('design:paramtypes', [category_store_1.CategoryStore])
                 ], CategoryList);

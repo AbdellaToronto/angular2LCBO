@@ -32,9 +32,14 @@ System.register(['angular2/core', '../action-dispatcher', 'rxjs/add/operator/map
                     this.lcbo = lcbo;
                     this._getDrinkAction = action_dispatcher_1.ActionDispatcher
                         .get('getDrink');
+                    this._getDrinkByCategoryAction = action_dispatcher_1.ActionDispatcher
+                        .get('getDrinkByCategory');
                     this.stream = new Rx_1.ReplaySubject(1);
                     this._getDrinkAction
                         .flatMap(function (action) { return lcbo.getDrinks(action.data.q); })
+                        .subscribe(function (list) { return _this.stream.next(list); });
+                    this._getDrinkByCategoryAction
+                        .flatMap(function (action) { return lcbo.getDrinksByCat(action.data.category); })
                         .subscribe(function (list) { return _this.stream.next(list); });
                 }
                 DrinkStore = __decorate([
