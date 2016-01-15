@@ -41,7 +41,7 @@ System.register(['angular2/core', "../drink-query-input/drink-query", "angular2/
                 DrinkListItem = __decorate([
                     core_1.Component({
                         selector: 'drink-list-item',
-                        template: "\n    <span class=\"drink-name\">{{drink.name}}</span>\n    ",
+                        template: "\n    <span class=\"drink-name\">{{drink.get('name')}}</span>\n    ",
                         styles: ["\n    :host {\n    width: 90vw;\n    }\n\n    .drink-name {\n    font-size: 18px;\n    }\n\n    "]
                     }), 
                     __metadata('design:paramtypes', [])
@@ -53,7 +53,8 @@ System.register(['angular2/core', "../drink-query-input/drink-query", "angular2/
                     var _this = this;
                     this.drinkStore = drinkStore;
                     this.requestNewDrinks = drink_query_actions_1.DrinkActions.getDrinks;
-                    drinkStore.stream.subscribe(function (res) { return _this.drinkList = res; });
+                    drinkStore.stream
+                        .subscribe(function (res) { return _this.drinkList = res.toArray(); });
                 }
                 DrinkList = __decorate([
                     core_1.Component({

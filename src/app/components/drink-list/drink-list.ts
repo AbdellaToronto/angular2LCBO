@@ -9,7 +9,7 @@ import {LCBOProductsRequest} from "../../services/drinks-api-service";
 @Component({
     selector: 'drink-list-item',
     template: `
-    <span class="drink-name">{{drink.name}}</span>
+    <span class="drink-name">{{drink.get('name')}}</span>
     `,
     styles: [`
     :host {
@@ -52,6 +52,7 @@ export class DrinkList {
     requestNewDrinks = DrinkActions.getDrinks;
 
     constructor(private drinkStore: DrinkStore){
-        drinkStore.stream.subscribe(res => this.drinkList = res);
+        drinkStore.stream
+            .subscribe(res => this.drinkList = res.toArray());
     }
 }
