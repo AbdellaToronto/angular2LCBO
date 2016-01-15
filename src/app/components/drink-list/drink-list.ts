@@ -1,6 +1,6 @@
 import { Component, View, Input } from 'angular2/core';
 import {DrinkQuery} from "../drink-query-input/drink-query";
-import {NgFor, CurrencyPipe} from "angular2/common";
+import {NgFor, CurrencyPipe, NgStyle} from "angular2/common";
 import {DrinkActions} from "../../services/actions/drink-query-actions";
 import {DrinkStore} from "../../services/stores/drink-store";
 import {LCBOProductsRequest} from "../../services/drinks-api-service";
@@ -9,6 +9,7 @@ import {LCBOProductsRequest} from "../../services/drinks-api-service";
 @Component({
     selector: 'drink-list-item',
     pipes: [CurrencyPipe],
+    directives: [NgStyle],
     template: `
 
       <div class="card">
@@ -18,7 +19,8 @@ import {LCBOProductsRequest} from "../../services/drinks-api-service";
     <div class="card-content">
       <span class="card-title activator grey-text text-darken-4">
       <span>{{drink.get('name')}}</span>
-      <span>{{drink.get('price_in_cents') / 100 | currency:'USD':true:'1.2-2'}}</span>
+      <span [ngStyle]="{'color':drink.get('price_in_cents') === drink.get('regular_price_in_cents') ? 'grey' : 'green' }"
+      >{{drink.get('price_in_cents') / 100 | currency:'USD':true:'1.2-2'}}</span>
       </span>
     </div>
     <div class="card-reveal">
