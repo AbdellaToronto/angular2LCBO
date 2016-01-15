@@ -41,8 +41,9 @@ System.register(['angular2/core', "../drink-query-input/drink-query", "angular2/
                 DrinkListItem = __decorate([
                     core_1.Component({
                         selector: 'drink-list-item',
-                        template: "\n    <span class=\"drink-name\">{{drink.get('name')}}</span>\n    ",
-                        styles: ["\n    :host {\n    width: 90vw;\n    }\n\n    .drink-name {\n    font-size: 18px;\n    }\n\n    "]
+                        pipes: [common_1.CurrencyPipe],
+                        template: "\n\n      <div class=\"card\">\n    <div class=\"card-image waves-effect waves-block waves-light\">\n      <img class=\"activator\" src=\"{{drink.get('image_url')}}\">\n    </div>\n    <div class=\"card-content\">\n      <span class=\"card-title activator grey-text text-darken-4\">\n      <span>{{drink.get('name')}}</span>\n      <span>{{drink.get('price_in_cents') / 100 | currency:'USD':true:'1.2-2'}}</span>\n      </span>\n    </div>\n    <div class=\"card-reveal\">\n      <span class=\"card-title grey-text text-darken-4\">{{drink.get('name')}}<i class=\"material-icons right\">close</i></span>\n      <p>Origin: {{drink.get('origin')}}</p>\n      <p>Package: {{drink.get('package')}}</p>\n      <p>Style: {{drink.get('style')}}</p>\n      <p>Reg Price: {{drink.get('regular_price_in_cents') / 100 | currency:'USD':true:'1.2-2'}}</p>\n\n    </div>\n  </div>\n\n\n\n    ",
+                        styles: ["\n    :host {\n        width: 30%;\n        margin: 10px;\n    }\n\n    "]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], DrinkListItem);
@@ -60,9 +61,9 @@ System.register(['angular2/core', "../drink-query-input/drink-query", "angular2/
                     core_1.Component({
                         providers: [drink_query_actions_1.DrinkActions, drink_store_1.DrinkStore, drinks_api_service_1.LCBOProductsRequest],
                         selector: "drink-list",
-                        template: "\n    <h2>Drink List</h2>\n    <drink-query (changed)=\"requestNewDrinks($event)\"></drink-query>\n    <drink-list-item *ngFor=\"#drink of drinkList\" [drink]=\"drink\"></drink-list-item>\n    ",
+                        template: "\n\n    <section class=\"header\">\n        <drink-query (changed)=\"requestNewDrinks($event)\"></drink-query>\n    </section>\n    <section class=\"list\">\n        <drink-list-item *ngFor=\"#drink of drinkList\" [drink]=\"drink\"></drink-list-item>\n    </section>\n    ",
                         directives: [common_1.NgFor, DrinkListItem, drink_query_1.DrinkQuery],
-                        styles: ["\n    :host {\n    width: 70vw;\n    display: flex;\n    flex-direction: column;\n    }\n    "]
+                        styles: ["\n    :host {\n    width: 80vw;\n    height: 100vh;\n\n    }\n\n    .list {\n    overflow: scroll;\n    display: flex;\n    flex-flow: wrap;\n    }\n    "]
                     }), 
                     __metadata('design:paramtypes', [drink_store_1.DrinkStore])
                 ], DrinkList);

@@ -11,7 +11,7 @@ import {DrinkActions} from "../../services/actions/drink-query-actions";
     directives: [NgFor, CategoryItem],
     template: `
     <div class="category-name">
-    <h4 (click)="searchForDrinks(category.name)" >{{category.name}}</h4>
+    <a (click)="searchForDrinks(category.name)" >{{category.name}}</a>
     <div class="sub-cats">
         <category-item
         *ngFor="#subcategory of category.children"
@@ -24,8 +24,19 @@ import {DrinkActions} from "../../services/actions/drink-query-actions";
     width: 200px;
     }
 
+    a {
+        margin: 6px 0;
+        font-size: 18px;
+    }
+
     .sub-cats {
-    padding-left: 20px;
+        padding-left: 20px;
+    }
+
+    .sub-cats a {
+        margin: 3px 0;
+        font-size: 15px;
+        font-weight: 400;
     }
 
     .category-name {
@@ -49,13 +60,15 @@ class CategoryItem {
     providers: [CategoryActions, DrinkActions, CategoryStore, LCBOCategoriesRequest],
     selector: `category-list`,
     template: `
-        <span>**Sub Categories not working as intended yet**</span>
+        <span>**Sub Categories WIP**</span>
     <category-item *ngFor="#category of categoryList" [category]="category" (selected)="requestNewDrinks($event)"></category-item>
     `,
     directives: [NgFor, CategoryItem],
     styles: [`
     :host {
-    width: 30vw;
+    width: 20vw;
+    height: 100vw;
+    overflow: scroll;
     display: flex;
     flex-direction: column;
     }`]

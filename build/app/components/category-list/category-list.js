@@ -49,8 +49,8 @@ System.register(['angular2/core', "angular2/common", '../../services/stores/cate
                     core_1.Component({
                         selector: 'category-item',
                         directives: [common_1.NgFor, CategoryItem],
-                        template: "\n    <div class=\"category-name\">\n    <h4 (click)=\"searchForDrinks(category.name)\" >{{category.name}}</h4>\n    <div class=\"sub-cats\">\n        <category-item\n        *ngFor=\"#subcategory of category.children\"\n        [category]=\"subcategory\" (selected)=\"searchForDrinks($event)\"></category-item>\n    </div>\n    </div>\n    ",
-                        styles: ["\n    :host {\n    width: 200px;\n    }\n\n    .sub-cats {\n    padding-left: 20px;\n    }\n\n    .category-name {\n    font-size: 18px;\n    }\n\n    "]
+                        template: "\n    <div class=\"category-name\">\n    <a (click)=\"searchForDrinks(category.name)\" >{{category.name}}</a>\n    <div class=\"sub-cats\">\n        <category-item\n        *ngFor=\"#subcategory of category.children\"\n        [category]=\"subcategory\" (selected)=\"searchForDrinks($event)\"></category-item>\n    </div>\n    </div>\n    ",
+                        styles: ["\n    :host {\n    width: 200px;\n    }\n\n    a {\n        margin: 6px 0;\n        font-size: 18px;\n    }\n\n    .sub-cats {\n        padding-left: 20px;\n    }\n\n    .sub-cats a {\n        margin: 3px 0;\n        font-size: 15px;\n        font-weight: 400;\n    }\n\n    .category-name {\n    font-size: 18px;\n    }\n\n    "]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], CategoryItem);
@@ -71,9 +71,9 @@ System.register(['angular2/core', "angular2/common", '../../services/stores/cate
                     core_1.Component({
                         providers: [category_actions_1.CategoryActions, drink_query_actions_1.DrinkActions, category_store_1.CategoryStore, drinks_api_service_1.LCBOCategoriesRequest],
                         selector: "category-list",
-                        template: "\n        <span>**Sub Categories not working as intended yet**</span>\n    <category-item *ngFor=\"#category of categoryList\" [category]=\"category\" (selected)=\"requestNewDrinks($event)\"></category-item>\n    ",
+                        template: "\n        <span>**Sub Categories WIP**</span>\n    <category-item *ngFor=\"#category of categoryList\" [category]=\"category\" (selected)=\"requestNewDrinks($event)\"></category-item>\n    ",
                         directives: [common_1.NgFor, CategoryItem],
-                        styles: ["\n    :host {\n    width: 30vw;\n    display: flex;\n    flex-direction: column;\n    }"]
+                        styles: ["\n    :host {\n    width: 20vw;\n    height: 100vw;\n    overflow: scroll;\n    display: flex;\n    flex-direction: column;\n    }"]
                     }), 
                     __metadata('design:paramtypes', [category_store_1.CategoryStore])
                 ], CategoryList);
